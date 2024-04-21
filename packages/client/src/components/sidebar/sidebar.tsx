@@ -3,6 +3,14 @@
 // has a button to set the active conversation
 // the active conversation is highlighted
 
-export default function Sidebar() {
-  return null;
+import IConversation from "@/models/IConversation";
+
+interface SidebarProps {
+    createNewConversation: () => void;
+    conversations: IConversation[];
+    setCurrentConversation: (conversation: IConversation) => void;
+}
+
+export default function Sidebar({ setCurrentConversation, createNewConversation, conversations }: SidebarProps) {
+    return null;
 }

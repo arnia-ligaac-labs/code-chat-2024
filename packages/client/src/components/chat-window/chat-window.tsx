@@ -3,6 +3,12 @@
 // simulates replies to messages (useEffect + setTimeout)
 // has a child component that holds the text input & button to add new messages
 
-export default function ChatWindow() {
-  return null;
+import IConversation from "@/models/IConversation";
+
+interface ChatWindowProps {
+    conversation: IConversation;
+}
+
+export default function ChatWindow({ conversation }: ChatWindowProps) {
+    return null;
 }
