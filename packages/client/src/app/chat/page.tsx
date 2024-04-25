@@ -5,5 +5,5 @@
  * Splits the UI into sidebar and conversation
  */
 export default function Chat() {
-  return null;
+  return <>Chat Page</>;
 }
