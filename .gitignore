@@ -12,7 +12,7 @@ node_modules/
 # next.js
 /packages/client/.next/
 /packages/client/out/
-
+.env
 # production
 /build
 
