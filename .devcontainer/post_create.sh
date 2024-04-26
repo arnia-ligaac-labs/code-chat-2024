@@ -8,7 +8,7 @@ cd .. && rm -rf fonts
 
 zsh -c 'git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions'
 zsh -c 'git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting'
-cp /workspaces/code-chat-2024/.devcontainer/.zshrc ~
+cp /workspace/.devcontainer/.zshrc ~
 
 ########################################################################################################################
 #### set agnoster as theme, this came from https://gist.github.com/corentinbettiol/21a6d4e942a0ee58d51acb7996697a88

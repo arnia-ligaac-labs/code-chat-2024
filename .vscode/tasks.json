@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/api",
+      "problemMatcher": [],
+      "label": "API Dev",
+      "detail": "node --watch -r ts-node/register src/server.ts"
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/client",
+      "problemMatcher": [],
+      "label": "Client Dev",
+      "detail": "next dev"
+    }
+  ]
+}
