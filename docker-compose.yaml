@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.1.0
+    container_name: mysql
+    hostname: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: codechat2024
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${LOCAL_WORKSPACE}/docker/mysql:/docker-entrypoint-initdb.d
+      - vol_mysql_data:/var/lib/mysql
+    networks:
+      - codechat2024
+
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm
+    container_name: devcontainer
+    hostname: devcontainer
+    command: sleep infinity
+    volumes:
+      - .:/workspace
+      - vol_shell_history:/dc/shellhistory
+      - vol_vscode:/vol_vscode
+      - /var/run/docker.sock:/var/run/docker-host.sock
+    networks:
+      - codechat2024
+
+volumes:
+  vol_mysql_data:
+  vol_shell_history:
+  vol_vscode:
+
+networks:
+  codechat2024:

@@ -1,0 +1,7 @@
+USE codechat2024;
+
+CREATE TABLE messages (
+    id VARCHAR(36) PRIMARY KEY,
+    message TEXT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
