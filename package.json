@@ -8,9 +8,15 @@
     "packages/*",
     "packages/shared/*"
   ],
+  "scripts": {
+    "postinstall": "shx echo LOCAL_WORKSPACE=$(node -p \"process.cwd()\") > .env"
+  },
   "packageManager": "yarn@4.1.1",
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
     "react-feather": "^2.0.10"
+  },
+  "devDependencies": {
+    "shx": "^0.3.4"
   }
 }

@@ -7,6 +7,7 @@
   - [Overview](#overview)
   - [Requirements](#requirements)
   - [Installation](#installation)
+    - [Postman](#postman)
   - [Running](#running)
     - [Web](#web)
       - [Shell](#shell)
@@ -51,6 +52,12 @@ To enter DevContainer environment:
 
 1. `(⌘/CTRL + SHIFT + P)`
 2. `Dev Containers: Open Folder in Container`
+
+### Postman
+
+Postman collection has been attached to this repo [here](./docs/postman)
+
+Import the collection and environment to facilitate development by calling API through an efficient and reproduceable flow.
 
 ## Running
 
