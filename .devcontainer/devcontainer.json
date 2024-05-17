@@ -4,7 +4,9 @@
   "name": "CodeChat2024",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   // "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
-  "dockerComposeFile": ["../docker-compose.yaml"],
+  "dockerComposeFile": [
+    "../docker-compose.yaml"
+  ],
   "service": "devcontainer",
   "workspaceFolder": "/workspace",
   // "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
@@ -34,7 +36,10 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000, 5000],
+  "forwardPorts": [
+    3000,
+    5000
+  ],
   "portsAttributes": {
     "3000": {
       "label": "Web",

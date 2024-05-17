@@ -1,5 +1,6 @@
 import { MemoryClass } from "../constants";
 import { TMessage } from "../interfaces";
+import { DynamoStorage } from "./DynamoStorage";
 import { InMemoryStorage } from "./InMemoryStorage";
 import { SqlStorage } from "./SqlStorage";
 
@@ -16,6 +17,8 @@ export class Storage implements IStorage {
       this.storage = new InMemoryStorage();
     } else if (process.env.APP_MEMORY_CLASS === MemoryClass.Sql) {
       this.storage = new SqlStorage();
+    } else if (process.env.APP_MEMORY_CLASS === MemoryClass.Dynamo) {
+      this.storage = new DynamoStorage();
     } else {
       throw Error("Unkown memory class");
     }

@@ -1,4 +1,5 @@
 export enum MemoryClass {
   InMemory = "inmemory",
-  Sql = "sql"
+  Sql = "sql",
+  Dynamo = "dynamodb",
 }

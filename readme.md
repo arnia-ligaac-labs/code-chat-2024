@@ -92,3 +92,9 @@ yarn workspace @code-chat-2024/api dev
 1. `(⌘/CTRL + SHIFT + P)`
 2. Task: Run Task
 3. `API Dev`
+
+
+
+1. Infrastructure as a Service IaaS
+2. Platform as a Service PaaS
+3. Software as a Service SaaS

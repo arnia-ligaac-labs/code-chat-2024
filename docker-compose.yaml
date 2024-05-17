@@ -18,6 +18,31 @@ services:
     networks:
       - codechat2024
 
+  dynamodb:
+    image: public.ecr.aws/aws-dynamodb-local/aws-dynamodb-local:2.4.0
+    container_name: dynamodb
+    hostname: dynamodb
+    environment:
+      AWS_REGION: eu-west-1
+    ports:
+      - "8000:8000"
+    networks:
+      - codechat2024
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    container_name: dynamodb-admin
+    hostname: dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      AWS_REGION: eu-west-1
+      DYNAMO_ENDPOINT: http://dynamodb:8000
+      AWS_ACCESS_KEY_ID: dummy
+      AWS_SECRET_ACCESS_KEY: dummy
+    networks:
+      - codechat2024
+
   devcontainer:
     image: mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm
     container_name: devcontainer
@@ -35,6 +60,7 @@ volumes:
   vol_mysql_data:
   vol_shell_history:
   vol_vscode:
+
 
 networks:
   codechat2024:
