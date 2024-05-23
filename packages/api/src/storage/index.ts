@@ -1,12 +1,14 @@
 import { MemoryClass } from "../constants";
-import { TMessage } from "../interfaces";
+import { TConversation, TMessage } from "../interfaces";
 import { DynamoStorage } from "./DynamoStorage";
 import { InMemoryStorage } from "./InMemoryStorage";
 import { SqlStorage } from "./SqlStorage";
 
 export interface IStorage {
-  save(message: string): Promise<void>;
-  getAll(): Promise<TMessage[]>;
+  createConversation(userId: string) : Promise<void>;
+  getConversations(userId: string): Promise<TConversation[]>;
+  saveMessage(userId: string, conversationId: string, message: string): Promise<void>; //TODO: should a reply to the message
+  getMessages(userId: string, conversationId: string): Promise<TMessage[]>;
 }
 
 export class Storage implements IStorage {
@@ -24,11 +26,19 @@ export class Storage implements IStorage {
     }
   }
 
-  public save(message: string) {
-    return this.storage.save(message);
+  public createConversation(userId: string) {
+    return this.storage.createConversation(userId);
   }
 
-  public getAll() {
-    return this.storage.getAll();
+  public getConversations(userId: string) {
+    return this.storage.getConversations(userId);
+  }
+
+  public saveMessage(userId: string, conversationId: string, message: string) {
+    return this.storage.saveMessage(userId, conversationId, message);
+  }
+
+  public getMessages(userId: string, conversationId: string) {
+    return this.storage.getMessages(userId, conversationId);
   }
 }

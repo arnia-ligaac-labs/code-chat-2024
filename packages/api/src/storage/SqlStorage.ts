@@ -1,6 +1,6 @@
 import { IStorage } from ".";
 import { RowDataPacket, createConnection, Connection } from "mysql2/promise";
-import { TMessage } from "../interfaces";
+import { TConversation, TMessage } from "../interfaces";
 import { v4 as uuidv4 } from "uuid";
 
 interface IMySQLEntry extends RowDataPacket {
@@ -45,4 +45,20 @@ export class SqlStorage implements IStorage {
       throw err;
     }
   }
+
+  public async getConversations(userId: string): Promise<TConversation[]> {
+    return [] as TConversation[];
+}
+
+public async createConversation(userId: string): Promise<void> {
+    return;
+}
+
+public async saveMessage(userId: string, conversationId: string, message: string): Promise<void> {
+    return;
+}
+
+public async getMessages(userId: string, conversationId: string): Promise<TMessage[]> {
+    return [] as TMessage[];
+}
 }

@@ -8,11 +8,18 @@ export class MessageService {
     this.storage = new Storage();
   }
 
-  public save(message: string) {
-    return this.storage.save(message);
+  public saveMessage(
+    userId: string,
+    conversationId: string,
+    message: string
+  ): Promise<void> {
+    return this.storage.saveMessage(userId, conversationId, message);
   }
 
-  public getAll() {
-    return this.storage.getAll();
+  public getMessages(
+    userId: string,
+    conversationId: string
+  ): Promise<TMessage[]> {
+    return this.storage.getMessages(userId, conversationId);
   }
 }
