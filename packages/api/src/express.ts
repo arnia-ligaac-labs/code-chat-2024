@@ -2,6 +2,7 @@ import "dotenv/config";
 import express, { Application } from "express";
 import { router as messagesRouter } from "./controllers/MessageController";
 import { router as conversationsRouter } from "./controllers/ConversationController";
+import cors from "cors";
 
 export interface ICustomRequest extends express.Request {
   userId?: string;
@@ -11,6 +12,8 @@ export interface ICustomRequest extends express.Request {
 const app: Application = express();
 
 app.use(express.json());
+app.use(cors());
+
 
 app.use((req: any, res, next) => {
   req.userId = "123";
