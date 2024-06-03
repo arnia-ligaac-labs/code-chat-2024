@@ -23,3 +23,9 @@ sudo sh -c "$(wget -O- https://raw.githubusercontent.com/deluan/zsh-in-docker/ma
 rm -f ~/.zshrc
 # restore saved zshrc
 mv ~/.zshrc.bak ~/.zshrc
+
+pip install -r /workspace/requirements.txt
+
+# yarn global add ijavascript
+npm install -g --unsafe-perm ijavascript
+ijsinstall

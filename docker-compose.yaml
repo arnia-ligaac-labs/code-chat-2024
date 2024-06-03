@@ -53,6 +53,11 @@ services:
       - vol_shell_history:/dc/shellhistory
       - vol_vscode:/vol_vscode
       - /var/run/docker.sock:/var/run/docker-host.sock
+      - $HOME/.aws:/home/node/.aws
+    environment:
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_PROFILE: cris_prod
+      PYTHONPATH: /workspace
     networks:
       - codechat2024
 
@@ -60,7 +65,6 @@ volumes:
   vol_mysql_data:
   vol_shell_history:
   vol_vscode:
-
 
 networks:
   codechat2024:
