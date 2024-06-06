@@ -9,13 +9,12 @@
     "packages/shared/*"
   ],
   "scripts": {
-    "postinstall": "shx echo LOCAL_WORKSPACE=$(node -p \"process.cwd()\") > .env"
+    "postinstall": "shx echo LOCAL_WORKSPACE=$(node -p \"process.cwd()\") > .env",
+    "deploy:org": "cd packages/infraorg && npm run cdk -- deploy CodeChat-Organization-PROD"
   },
   "packageManager": "yarn@4.1.1",
   "dependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@types/cors": "^2.8.17",
-    "cors": "^2.8.5",
     "react-feather": "^2.0.10"
   },
   "devDependencies": {

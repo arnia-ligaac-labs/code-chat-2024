@@ -11,7 +11,8 @@ node_modules/
 
 # next.js
 /packages/client/.next/
-/packages/client/out/
+/packages/client/dist/
+/packages/api/dist
 .env
 # production
 /build
