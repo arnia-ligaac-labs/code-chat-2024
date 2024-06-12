@@ -1,0 +1,8 @@
+{
+  "ssm:account=918917524393:parameterName=/codechat/api/url/dev:region=us-east-1": "https://z742ds7at8.execute-api.us-east-1.amazonaws.com/",
+  "ssm:account=211125566815:parameterName=/codechat/api/url/dev:region=us-east-1": "https://baabnuvpua.execute-api.us-east-1.amazonaws.com/",
+  "hosted-zone:account=211125566815:domainName=teacher.codechat2024.crisboarna.com:region=us-east-1": {
+    "Id": "/hostedzone/Z010674148X4XZQJ9RFY",
+    "Name": "teacher.codechat2024.crisboarna.com."
+  }
+}

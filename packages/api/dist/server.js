@@ -1,14 +1,11 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const app = (0, express_1.default)();
-app.use(express_1.default.json());
-app.get("/", (req, res) => {
-    res.send("Hello World!");
+require("dotenv/config");
+const express_1 = require("./express");
+express_1.app.listen(process.env.PORT, () => {
+    console.log(`Server is runnings on http://localhost:${process.env.PORT}`);
+    console.log(`Registered routes: [${express_1.app._router.stack
+        .filter((r) => r.route)
+        .map((r) => `"${r.route.path}"`)}]`);
 });
-app.listen(3000, () => {
-    console.log("Server is running on http://localhost:3000");
-});
+//# sourceMappingURL=server.js.map

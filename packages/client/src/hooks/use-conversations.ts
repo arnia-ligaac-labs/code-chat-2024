@@ -3,8 +3,6 @@ import { randomBytes } from "crypto";
 import { useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
 
-
-
 export default function useConversations() {
   const [conversations, setConversations] = useState<IConversation[]>([]);
   const [selectedConversationId, setSelectedConversationId] = useState<
@@ -12,7 +10,9 @@ export default function useConversations() {
   >(null);
 
   async function getConversations() {
-    const response = await fetch(`http://localhost:8010/api/v1/conversations`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/conversations`
+    );
     const conversations = await response.json();
     console.log(conversations);
     setConversations(conversations);
@@ -23,21 +23,21 @@ export default function useConversations() {
   }, []);
 
   async function addConversation() {
-    await fetch(`http://localhost:8010/api/v1/conversations`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/conversations`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({})
+      body: JSON.stringify({}),
     });
 
     getConversations();
   }
 
   function removeConversation(conversationId: string) {
-    setConversations(prevConversations =>
+    setConversations((prevConversations) =>
       prevConversations.filter(
-        conversation => conversation.id !== conversationId
+        (conversation) => conversation.id !== conversationId
       )
     );
   }
@@ -50,14 +50,14 @@ export default function useConversations() {
     const message: IMessage = {
       id: randomBytes(16).toString("hex"),
       content,
-      sender
+      sender,
     };
-    setConversations(prevConversations => {
-      return prevConversations.map(conversation => {
+    setConversations((prevConversations) => {
+      return prevConversations.map((conversation) => {
         if (conversation.id === conversationId) {
           return {
             ...conversation,
-            messages: [...conversation.messages, message]
+            messages: [...conversation.messages, message],
           };
         }
         return conversation;
@@ -66,7 +66,7 @@ export default function useConversations() {
   }
 
   const selectedConversation = conversations.find(
-    conversation => conversation.id === selectedConversationId
+    (conversation) => conversation.id === selectedConversationId
   );
 
   useEffect(() => {
@@ -92,6 +92,6 @@ export default function useConversations() {
     removeConversation,
     selectedConversation,
     selectedConversationId,
-    setSelectedConversationId
+    setSelectedConversationId,
   };
 }

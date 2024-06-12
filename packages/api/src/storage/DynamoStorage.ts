@@ -1,7 +1,8 @@
 import {
   DynamoDBClient,
+  DynamoDBClientConfig,
   QueryCommand,
-  QueryCommandInput
+  QueryCommandInput,
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { IStorage } from ".";
@@ -13,14 +14,14 @@ import {
   PutCommand,
   PutCommandInput,
   ScanCommand,
-  ScanCommandInput
+  ScanCommandInput,
 } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
 
 export enum EEntitiesPrefix {
   User = "USER",
   Conversation = "CONVERSATION",
-  Message = "MESSAGE"
+  Message = "MESSAGE",
 }
 
 export class DynamoStorage implements IStorage {
@@ -28,21 +29,25 @@ export class DynamoStorage implements IStorage {
   private ddbDocClient: DynamoDBDocumentClient;
 
   public constructor() {
-    this.ddbClient = new DynamoDBClient({
-      region: process.env.AWS_REGION,
-      endpoint: process.env.DYNAMODB_ENDPOINT,
-      credentials: {
+    const config: DynamoDBClientConfig = {};
+
+    if (process.env.DYNAMODB_ENDPOINT) {
+      config["region"] = process.env.AWS_REGION;
+      config["endpoint"] = process.env.DYNAMODB_ENDPOINT;
+      config["credentials"] = {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ""
-      }
-    });
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
+      };
+    }
+
+    this.ddbClient = new DynamoDBClient(config);
     this.ddbDocClient = DynamoDBDocumentClient.from(this.ddbClient);
   }
 
   public async save(message: string): Promise<void> {
     const params: PutCommandInput = {
       TableName: process.env.DYNAMODB_TABLE_MESSAGES,
-      Item: { id: uuidv4(), message, timestamp: Date.now() }
+      Item: { id: uuidv4(), message, timestamp: Date.now() },
     };
 
     try {
@@ -54,7 +59,7 @@ export class DynamoStorage implements IStorage {
 
   public async getAll(): Promise<TMessage[]> {
     const params: ScanCommandInput = {
-      TableName: process.env.DYNAMODB_TABLE_MESSAGES
+      TableName: process.env.DYNAMODB_TABLE_MESSAGES,
     };
 
     try {
@@ -75,8 +80,8 @@ export class DynamoStorage implements IStorage {
         timestamp: Date.now(),
         type: EEntitiesPrefix.Conversation,
         pk: `${EEntitiesPrefix.User}#${userId}`,
-        sk: `${EEntitiesPrefix.Conversation}#${id}`
-      }
+        sk: `${EEntitiesPrefix.Conversation}#${id}`,
+      },
     };
 
     try {
@@ -101,8 +106,8 @@ export class DynamoStorage implements IStorage {
         type: EEntitiesPrefix.Message,
         message,
         pk: `${EEntitiesPrefix.User}#${userId}`,
-        sk: `${EEntitiesPrefix.Conversation}#${conversationId}#${EEntitiesPrefix.Message}#${messageId}`
-      }
+        sk: `${EEntitiesPrefix.Conversation}#${conversationId}#${EEntitiesPrefix.Message}#${messageId}`,
+      },
     };
 
     try {
@@ -119,21 +124,21 @@ export class DynamoStorage implements IStorage {
       KeyConditionExpression: "pk = :pk and begins_with(sk, :sk)",
       ExpressionAttributeValues: marshall({
         ":pk": `${EEntitiesPrefix.User}#${userId}`,
-        ":sk": EEntitiesPrefix.Conversation
+        ":sk": EEntitiesPrefix.Conversation,
         // ":type": EEntitiesPrefix.Conversation
-      })
+      }),
       // FilterExpression: "type = :type"
     };
 
     try {
       const data = await this.ddbDocClient.send(new QueryCommand(params));
       return (
-        data.Items?.map(item => unmarshall(item))
+        data.Items?.map((item) => unmarshall(item))
           // TODO: FILTER BY GSI NOT LIKE THIS!!
-          .filter(item => item.type === EEntitiesPrefix.Conversation)
-          .map(item => ({
+          .filter((item) => item.type === EEntitiesPrefix.Conversation)
+          .map((item) => ({
             id: item.id,
-            timestamp: item.timestamp
+            timestamp: item.timestamp,
           })) || []
       );
     } catch (err) {
@@ -151,17 +156,17 @@ export class DynamoStorage implements IStorage {
       KeyConditionExpression: "pk = :pk and begins_with(sk, :sk)",
       ExpressionAttributeValues: marshall({
         ":pk": `${EEntitiesPrefix.User}#${userId}`,
-        ":sk": `${EEntitiesPrefix.Conversation}#${conversationId}#${EEntitiesPrefix.Message}`
-      })
+        ":sk": `${EEntitiesPrefix.Conversation}#${conversationId}#${EEntitiesPrefix.Message}`,
+      }),
     };
 
     try {
       const data = await this.ddbDocClient.send(new QueryCommand(params));
       return (
-        data.Items?.map(item => unmarshall(item)).map(item => ({
+        data.Items?.map((item) => unmarshall(item)).map((item) => ({
           id: item.id,
           message: item.message,
-          timestamp: item.timestamp
+          timestamp: item.timestamp,
         })) || []
       );
     } catch (err) {

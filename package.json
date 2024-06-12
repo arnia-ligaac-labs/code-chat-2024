@@ -10,6 +10,16 @@
   ],
   "scripts": {
     "postinstall": "shx echo LOCAL_WORKSPACE=$(node -p \"process.cwd()\") > .env",
+    "deploy": "yarn deploy:db && yarn deploy:api && yarn deploy:web:devcontainer",
+    "deploy:db": "cd packages/infra && npm run cdk -- deploy CodeChat-DB-$ENV",
+    "deploy:api": "yarn workspace @code-chat-2024/api run build && cd packages/infra && npm run cdk -- deploy -c CDK_DEFAULT_ACCOUNT=$CDK_DEFAULT_ACCOUNT CodeChat-Api-$ENV",
+    "deploy:web": "yarn workspace @code-chat-2024/client run build && cd packages/infra && npm run cdk --deploy CodeChat-Web-$ENV",
+    "deploy:web:devcontainer": "yarn workspace @code-chat-2024/client run build && cd packages/infra && npm run cdk -- deploy -c CDK_DEFAULT_ACCOUNT=$CDK_DEFAULT_ACCOUNT -c DEV_CONTAINER=true CodeChat-Web-$ENV",
+    "destroy": "yarn destroy:db && yarn destroy:api && yarn destroy:web",
+    "destroy:db": "cd packages/infra && npm run cdk -- destroy CodeChat-DB-$ENV",
+    "destroy:api": "cd packages/infra && npm run cdk -- destroy CodeChat-Api-$ENV",
+    "destroy:web": "cd packages/infra && npm run cdk -- destroy CodeChat-Web-$ENV",
+    "destroy:web:devcontainer": "cd packages/infra && npm run cdk -- destroy -c CDK_DEFAULT_ACCOUNT=$CDK_DEFAULT_ACCOUNT -c DEV_CONTAINER=true CodeChat-Web-$ENV",
     "deploy:org": "cd packages/infraorg && npm run cdk -- deploy CodeChat-Organization-PROD"
   },
   "packageManager": "yarn@4.1.1",

@@ -1,0 +1,9 @@
+*.js
+!jest.config.js
+!lambda/cdn/viewer-request/index.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out

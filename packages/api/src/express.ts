@@ -14,7 +14,6 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-
 app.use((req: any, res, next) => {
   req.userId = "123";
   next();
@@ -22,6 +21,11 @@ app.use((req: any, res, next) => {
 
 app.use((req: ICustomRequest, res, next) => {
   console.log(`Request: ${req.method} ${req.path}`);
+  next();
+});
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
 
