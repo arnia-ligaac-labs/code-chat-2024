@@ -28,7 +28,7 @@
       "dockerDashComposeVersion": "v2"
     },
     "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
-    "ghcr.io/mikaello/devcontainer-features/modern-shell-utils:1": {},
+    "ghcr.io/mikaello/devcontainer-features/modern-shell-utils:2": {},
     "ghcr.io/schlich/devcontainer-features/powerlevel10k:1": {},
     "ghcr.io/devcontainers/features/python:1": {
       "installTools": true,
